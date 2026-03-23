@@ -1,19 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-
 export async function POST(request: NextRequest) {
   try {
     const { to_email, from_name, from_email, project_type, message, reply_to } = await request.json();
-
     // Create transporter
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // Your Gmail address
-        pass: process.env.EMAIL_PASS, // Your Gmail app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
-
     // Email content
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -29,10 +26,8 @@ export async function POST(request: NextRequest) {
         <p>${message.replace(/\n/g, '<br>')}</p>
       `,
     };
-
     // Send email
     await transporter.sendMail(mailOptions);
-
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error sending email:', error);
