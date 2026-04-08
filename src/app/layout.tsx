@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Libre_Franklin } from "next/font/google";
 import "./globals.css";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 
 const libreFranklin = Libre_Franklin({
   subsets: ['latin'],
